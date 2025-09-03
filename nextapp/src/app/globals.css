@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0E1523;
+  --foreground: #171717;
+}
+
+::-webkit-scrollbar {
+    display: none; /* Для браузеров на основе WebKit (Chrome, Safari) */
+}
+
+body {
+    font-family: monospace;
+    overflow: hidden; /* Запрет прокрутки */
+    background-color: var(--background);
+}
+
+.app {
+    height: 100vh;
+    min-height: 100vh;
+    width: 100vw;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wind {
+    width: calc(100% - 40px);
+    max-width: 1008px;
+}
+
+nav button:hover {
+    background: lab(15.6845% -20.4225 11.7249);
+}
+
+.cursor {
+    width: 9px;
+    height: 14px;
+    background: var(--color-green-400);
+    display: inline-block;
+    animation: blink 1s step-start infinite; /* Применение анимации */
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1; /* Полная видимость */
+    }
+    50% {
+        opacity: 0; /* Полная прозрачность */
+    }
+}
+
