@@ -1,6 +1,10 @@
-import Image from "next/image";
+"use client";
 
-function Terminal() {
+import { useState } from "react";
+
+type SectionKey = "home" | "about" | "blog" | "portfolio" | "contact";
+
+function Terminal({ activeSection, onChange }: { activeSection: SectionKey; onChange: (s: SectionKey) => void; }) {
     return (
         <div className="m-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
             <header className="flex flex-row items-start justify-between">
@@ -19,27 +23,32 @@ function Terminal() {
             <h4 className="text-yellow-400 text-sm mt-8">Available commands:</h4>
             <nav className="flex flex-row items-start justify-between mt-3.5 gap-2">
                 <button
-                    className="bg-green-950 text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer">
+                    onClick={() => onChange("home")}
+                    className={(activeSection === "home" ? "bg-green-950" : "bg-black") + " text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer"}>
                     <span className="text-green-400">$</span>home
                 </button>
                 <button
-                    className="bg-black text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer">
+                    onClick={() => onChange("about")}
+                    className={(activeSection === "about" ? "bg-green-950" : "bg-black") + " text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer"}>
                     <span className="text-green-400">$</span>about
                 </button>
                 <button
-                    className="bg-black text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer">
+                    onClick={() => onChange("blog")}
+                    className={(activeSection === "blog" ? "bg-green-950" : "bg-black") + " text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer"}>
                     <span className="text-green-400">$</span>blog
                 </button>
                 <button
-                    className="bg-black text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer">
+                    onClick={() => onChange("portfolio")}
+                    className={(activeSection === "portfolio" ? "bg-green-950" : "bg-black") + " text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer"}>
                     <span className="text-green-400">$</span>portfolio
                 </button>
                 <button
-                    className="bg-black text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer">
+                    onClick={() => onChange("contact")}
+                    className={(activeSection === "contact" ? "bg-green-950" : "bg-black") + " text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer"}>
                     <span className="text-green-400">$</span>contact
                 </button>
             </nav>
-            <h4 className="mt-6 text-white text-sm"><span className="text-green-400">user@portfolio~$</span> home<span
+            <h4 className="mt-6 text-white text-sm"><span className="text-green-400">user@portfolio~$</span> {activeSection}<span
                 className="cursor"></span></h4>
         </div>
     );
@@ -122,12 +131,56 @@ function AboutDiv() {
     );
 }
 
+function ContactDiv() {
+    return (
+        <div className="mr-5 ml-5 mb-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
+            <h4 className="text-yellow-400 text-sm">$ cat /home/user/contact.txt</h4>
+            <h4 className="text-blue-400 text-sm mt-5 ml-3.5"># Contact Information</h4>
+            <span className="flex flex-row items-start justify-between">
+                <p className="text-white text-sm mt-3.5 ml-7">Email:</p>
+                <p className="text-blue-400 text-sm mt-3.5 mr-6">use.vcs.api@gmail.com</p>
+            </span>
+            <span className="flex flex-row items-start justify-between">
+                <p className="text-white text-sm mt-3.5 ml-7">Site:</p>
+                <p className="text-blue-400 text-sm mt-3.5 mr-6">site.url</p>
+            </span>
+            <span className="flex flex-row items-start justify-between">
+                <p className="text-white text-sm mt-3.5 ml-7">GitHub:</p>
+                <p className="text-blue-400 text-sm mt-3.5 mr-6">github.com/vcsapi</p>
+            </span>
+            <span className="flex flex-row items-start justify-between">
+                <p className="text-white text-sm mt-3.5 ml-7">Telegram:</p>
+                <p className="text-blue-400 text-sm mt-3.5 mr-6">@logka_15</p>
+            </span>
+            <span className="flex flex-row items-start justify-between">
+                <p className="text-white text-sm mt-3.5 ml-7">Location:</p>
+                <p className="text-white text-sm mt-3.5 mr-6">Russia</p>
+            </span>
+            <h4 className="text-blue-400 text-sm mt-5 ml-3.5"># Contact Information</h4>
+            <p className="text-green-400 text-sm mt-3 ml-3"> - Currentky accepting new projects</p>
+            <p className="text-green-400 text-sm mt-3 ml-3"> - Open to freelance opportunities</p>
+            <p className="text-green-400 text-sm mt-3 ml-3"> - Available for consulting</p>
+            <p className="text-yellow-400 text-sm mt-3 ml-3"> - Response time: Usually within 24 hours</p>
+        </div>
+    );
+}
+
 export default function Home() {
-  return (
-      <div className="app">
-          <Terminal/>
-          <AboutDiv/>
-          <Footer/>
-      </div>
-  );
+    const [activeSection, setActiveSection] = useState<SectionKey>("home");
+
+    return (
+        <div className="app">
+            <Terminal activeSection={activeSection} onChange={setActiveSection} />
+            {activeSection === "home" && <HomeDiv/>}
+            {activeSection === "about" && <AboutDiv/>}
+            {activeSection === "contact" && <ContactDiv/>}
+            {activeSection !== "home" && activeSection !== "about" && activeSection !== "contact" && (
+                <div className="mr-5 ml-5 mb-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
+                    <h4 className="text-yellow-400 text-sm">$ echo \"{activeSection} section coming soon...\"</h4>
+                    <p className="text-white text-sm mt-3.5">This section is under construction.</p>
+                </div>
+            )}
+            <Footer/>
+        </div>
+    );
 }
