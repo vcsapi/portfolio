@@ -11,7 +11,7 @@
 
 body {
     font-family: monospace;
-    overflow: hidden; /* Запрет прокрутки */
+    overflow-x: hidden; /* Запрет прокрутки */
     background-color: var(--background);
 }
 
