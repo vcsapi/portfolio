@@ -1,8 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type SectionKey = "home" | "about" | "blog" | "portfolio" | "contact";
+
+// API Data Types
+interface BlogPost {
+    id: number;
+    name: string;
+    description: string;
+    tags: string;
+    published: string;
+}
+
+interface PortfolioProject {
+    id: number;
+    name: string;
+    description: string;
+    tech: string;
+    users: string;
+    status: string;
+    repos: string;
+    type: string;
+}
+
+// API Base URL - Update this to match your Django server
+const API_BASE_URL = "http://localhost:8000";
 
 function Terminal({ activeSection, onChange }: { activeSection: SectionKey; onChange: (s: SectionKey) => void; }) {
     return (
@@ -165,29 +188,148 @@ function ContactDiv() {
     );
 }
 function BlogDiv() {
+    const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchBlogPosts = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`${API_BASE_URL}/api/app1/modela/`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch blog posts');
+                }
+                const data = await response.json();
+                setBlogPosts(data);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBlogPosts();
+    }, []);
+
     return (
         <div className="mr-5 ml-5 mb-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
             <p className="text-yellow-400 text-sm ml-3">$ ls -la /home/user/blog/</p>
-            <p className="text-white text-sm mt-5 ml-3">total 4 posts</p>
+            <p className="text-white text-sm mt-5 ml-3">total {blogPosts.length} posts</p>
             <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 2 user user 4096 Feb 15 09:30 .</p>
-            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09”30 ...</p>
-            <p className="text-yellow-400 text-sm mt-5 ml-3">$ ls -la /home/user/blog/</p>
+            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09"30 ...</p>
+            <p className="text-yellow-400 text-sm mt-5 ml-3">$ cat blog/posts.txt</p>
             <div className="bg-black border border-green-700 rounded-lg w-full p-4 mt-7">
-
+                {loading ? (
+                    <p className="text-yellow-400 text-sm">Loading blog posts...</p>
+                ) : error ? (
+                    <p className="text-red-400 text-sm">Error: {error}</p>
+                ) : blogPosts.length === 0 ? (
+                    <p className="text-white text-sm">No blog posts found.</p>
+                ) : (
+                    <div className="space-y-4">
+                        {blogPosts.map((post) => (
+                            <div key={post.id} className="border-b border-green-800 pb-3 last:border-b-0">
+                                <h4 className="text-blue-400 text-sm font-bold">{post.name}</h4>
+                                <p className="text-white text-xs mt-1">{post.description}</p>
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                    {post.tags.split(',').map((tag, index) => (
+                                        <span key={index} className="text-green-400 text-xs bg-green-900 px-2 py-1 rounded">
+                                            #{tag.trim()}
+                                        </span>
+                                    ))}
+                                </div>
+                                <p className="text-gray-400 text-xs mt-2">Published: {new Date(post.published).toLocaleDateString()}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
 }
 
 function PortfolioDiv() {
+    const [portfolioProjects, setPortfolioProjects] = useState<PortfolioProject[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchPortfolioProjects = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`${API_BASE_URL}/api/app2/modelb/`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch portfolio projects');
+                }
+                const data = await response.json();
+                setPortfolioProjects(data);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPortfolioProjects();
+    }, []);
+
     return (
         <div className="mr-5 ml-5 mb-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
             <p className="text-yellow-400 text-sm ml-3">$ ls -la /home/user/projects/</p>
-            <p className="text-white text-sm mt-5 ml-3">total 4 posts</p>
+            <p className="text-white text-sm mt-5 ml-3">total {portfolioProjects.length} projects</p>
             <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 2 user user 4096 Feb 15 09:30 .</p>
-            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09”30 ...</p>
-            <p className="text-yellow-400 text-sm mt-5 ml-3">$ cat projects/sample/README.md</p>
+            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09"30 ...</p>
+            <p className="text-yellow-400 text-sm mt-5 ml-3">$ cat projects/README.md</p>
             <div className="bg-black border border-green-700 rounded-lg w-full p-4 mt-7">
+                {loading ? (
+                    <p className="text-yellow-400 text-sm">Loading portfolio projects...</p>
+                ) : error ? (
+                    <p className="text-red-400 text-sm">Error: {error}</p>
+                ) : portfolioProjects.length === 0 ? (
+                    <p className="text-white text-sm">No portfolio projects found.</p>
+                ) : (
+                    <div className="space-y-4">
+                        {portfolioProjects.map((project) => (
+                            <div key={project.id} className="border-b border-green-800 pb-4 last:border-b-0">
+                                <div className="flex justify-between items-start mb-2">
+                                    <h4 className="text-blue-400 text-sm font-bold">{project.name}</h4>
+                                    <span className={`text-xs px-2 py-1 rounded ${
+                                        project.status === 'Completed' ? 'bg-green-900 text-green-400' :
+                                        project.status === 'In Progress' ? 'bg-yellow-900 text-yellow-400' :
+                                        'bg-gray-900 text-gray-400'
+                                    }`}>
+                                        {project.status}
+                                    </span>
+                                </div>
+                                <p className="text-white text-xs mt-1 mb-2">{project.description}</p>
+                                <div className="flex flex-wrap gap-2 mb-2">
+                                    {project.tech.split(',').map((tech, index) => (
+                                        <span key={index} className="text-green-400 text-xs bg-green-900 px-2 py-1 rounded">
+                                            {tech.trim()}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="flex justify-between items-center text-xs">
+                                    <div className="flex gap-4">
+                                        <span className="text-gray-400">Type: <span className="text-white">{project.type}</span></span>
+                                        <span className="text-gray-400">Users: <span className="text-white">{project.users}</span></span>
+                                    </div>
+                                    {project.repos && (
+                                        <a 
+                                            href={project.repos} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="text-blue-400 hover:text-blue-300 underline"
+                                        >
+                                            View Repo
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
