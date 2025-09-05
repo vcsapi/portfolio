@@ -123,7 +123,7 @@ function AboutDiv() {
             <p className="text-white text-sm mt-1 ml-3">Type: Human</p>
             <p className="text-white text-sm mt-1 ml-3">Attributes: Creative, Positive, Collaborative</p>
             <p className="text-white text-sm mt-1 ml-3">Last modified: Always evolving</p>
-            <div className="mt-7 h-auto wind bg-black border border-blue-900 rounded-lg p-4">
+            <div className="mt-7 h-auto w-full bg-black border border-blue-900 rounded-lg p-4">
                 <h4 className="text-blue-400 text-sm">Fun Fact:</h4>
                 <h4 className="text-white text-sm mt-2">I can write different words with both hands at the same time.</h4>
             </div>
@@ -164,6 +164,34 @@ function ContactDiv() {
         </div>
     );
 }
+function BlogDiv() {
+    return (
+        <div className="mr-5 ml-5 mb-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
+            <p className="text-yellow-400 text-sm ml-3">$ ls -la /home/user/blog/</p>
+            <p className="text-white text-sm mt-5 ml-3">total 4 posts</p>
+            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 2 user user 4096 Feb 15 09:30 .</p>
+            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09”30 ...</p>
+            <p className="text-yellow-400 text-sm mt-5 ml-3">$ ls -la /home/user/blog/</p>
+            <div className="bg-black border border-green-700 rounded-lg w-full p-4 mt-7">
+
+            </div>
+        </div>
+    );
+}
+
+function PortfolioDiv() {
+    return (
+        <div className="mr-5 ml-5 mb-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
+            <p className="text-yellow-400 text-sm ml-3">$ ls -la /home/user/projects/</p>
+            <p className="text-white text-sm mt-5 ml-3">total 4 posts</p>
+            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 2 user user 4096 Feb 15 09:30 .</p>
+            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09”30 ...</p>
+            <p className="text-yellow-400 text-sm mt-5 ml-3">$ cat projects/sample/README.md</p>
+            <div className="bg-black border border-green-700 rounded-lg w-full p-4 mt-7">
+            </div>
+        </div>
+    );
+}
 
 export default function Home() {
     const [activeSection, setActiveSection] = useState<SectionKey>("home");
@@ -174,7 +202,9 @@ export default function Home() {
             {activeSection === "home" && <HomeDiv/>}
             {activeSection === "about" && <AboutDiv/>}
             {activeSection === "contact" && <ContactDiv/>}
-            {activeSection !== "home" && activeSection !== "about" && activeSection !== "contact" && (
+            {activeSection === "blog" && <BlogDiv/>}
+            {activeSection === "portfolio" && <PortfolioDiv/>}
+            {activeSection !== "home" && activeSection !== "about" && activeSection !== "contact" && activeSection !== "blog" && activeSection !== "portfolio" && (
                 <div className="mr-5 ml-5 mb-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
                     <h4 className="text-yellow-400 text-sm">$ echo \"{activeSection} section coming soon...\"</h4>
                     <p className="text-white text-sm mt-3.5">This section is under construction.</p>
