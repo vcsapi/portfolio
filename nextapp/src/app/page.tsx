@@ -97,7 +97,7 @@ function HomeDiv() {
             <h4 className="text-yellow-400 text-sm mt-10">$ whoami</h4>
             <p className="text-white text-sm mt-3.5">Imran - Fullstack developer</p>
             <h4 className="text-yellow-400 text-sm mt-7">$ whoami</h4>
-            <p className="text-white text-sm mt-3.5">Welcome to my digital workspace. I love creating something new. When I'm not coding, you can find me learning new technologies or drinking coffee.</p>
+            <p className="text-white text-sm mt-3.5">Welcome to my digital workspace. I love creating something new. When I&apos;m not coding, you can find me learning new technologies or drinking coffee.</p>
             <h4 className="text-yellow-400 text-sm mt-7">$ ls skills/</h4>
             <div>
                 <div className="flex flex-row items-start gap-20 mt-7">
@@ -134,7 +134,7 @@ function AboutDiv() {
             <p className="text-white text-sm mt-1 ml-7">Experience: 2+ years</p>
             <p className="text-white text-sm mt-1 ml-7">Status: Available for hire</p>
             <h4 className="text-blue-400 text-sm mt-5 ml-3.5"># Background</h4>
-            <p className="text-white text-sm mt-3 ml-7">I started my journey in a school computer science club where I learned my first programming language: C++. Then I started creating layouts in figma. That's how I came to study the web 2 years ago</p>
+            <p className="text-white text-sm mt-3 ml-7">I started my journey in a school computer science club where I learned my first programming language: C++. Then I started creating layouts in figma. That&apos;s how I came to study the web 2 years ago</p>
             <h4 className="text-blue-400 text-sm mt-5 ml-3.5"># Philosophy</h4>
             <p className="text-white text-sm mt-3 ml-7">If you can optimize it, optimize it.</p>
             <h4 className="text-blue-400 text-sm mt-5 ml-3.5"># Interests</h4>
@@ -217,7 +217,7 @@ function BlogDiv() {
             <p className="text-yellow-400 text-sm ml-3">$ ls -la /home/user/blog/</p>
             <p className="text-white text-sm mt-5 ml-3">total {blogPosts.length} posts</p>
             <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 2 user user 4096 Feb 15 09:30 .</p>
-            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09"30 ...</p>
+            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09&quot;30 ...</p>
             <p className="text-yellow-400 text-sm mt-5 ml-3">$ cat blog/posts.txt</p>
             <div className="bg-black border border-green-700 rounded-lg w-full p-4 mt-7">
                 {loading ? (
@@ -279,7 +279,7 @@ function PortfolioDiv() {
             <p className="text-yellow-400 text-sm ml-3">$ ls -la /home/user/projects/</p>
             <p className="text-white text-sm mt-5 ml-3">total {portfolioProjects.length} projects</p>
             <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 2 user user 4096 Feb 15 09:30 .</p>
-            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09"30 ...</p>
+            <p className="text-white text-sm mt-2 ml-3">drwxr-xr-x 5 user user 4096 Feb 15 09&quot;30 ...</p>
             <p className="text-yellow-400 text-sm mt-5 ml-3">$ cat projects/README.md</p>
             <div className="bg-black border border-green-700 rounded-lg w-full p-4 mt-7">
                 {loading ? (
@@ -348,7 +348,7 @@ export default function Home() {
             {activeSection === "portfolio" && <PortfolioDiv/>}
             {activeSection !== "home" && activeSection !== "about" && activeSection !== "contact" && activeSection !== "blog" && activeSection !== "portfolio" && (
                 <div className="mr-5 ml-5 mb-5 h-auto wind bg-black border border-green-700 rounded-lg p-6">
-                    <h4 className="text-yellow-400 text-sm">$ echo \"{activeSection} section coming soon...\"</h4>
+                    <h4 className="text-yellow-400 text-sm">$ echo &quot;{activeSection} section coming soon...&quot;</h4>
                     <p className="text-white text-sm mt-3.5">This section is under construction.</p>
                 </div>
             )}
