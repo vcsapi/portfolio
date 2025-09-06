@@ -44,7 +44,7 @@ function Terminal({ activeSection, onChange }: { activeSection: SectionKey; onCh
             <h4 className="text-blue-400 text-sm">║ WELCOME TO MY PORTFOLIO ║</h4>
             <h4 className="text-blue-400 text-sm">╚═════════════════════════╝</h4>
             <h4 className="text-yellow-400 text-sm mt-8">Available commands:</h4>
-            <nav className="flex flex-row items-start justify-between mt-3.5 gap-2">
+            <nav className="flex flex-row items-start justify-between flex-wrap mt-3.5 gap-2">
                 <button
                     onClick={() => onChange("home")}
                     className={(activeSection === "home" ? "bg-green-950" : "bg-black") + " text-sm text-white pt-3.5 pr-2.5 pb-3.5 pl-2.5 rounded-xs flex-1 cursor-pointer"}>
@@ -99,15 +99,17 @@ function HomeDiv() {
             <h4 className="text-yellow-400 text-sm mt-7">$ whoami</h4>
             <p className="text-white text-sm mt-3.5">Welcome to my digital workspace. I love creating something new. When I&apos;m not coding, you can find me learning new technologies or drinking coffee.</p>
             <h4 className="text-yellow-400 text-sm mt-7">$ ls skills/</h4>
-            <div>
-                <div className="flex flex-row items-start gap-20 mt-7">
+            <div className="flex flex-row flex-warp">
+                <div className="flex flex-col items-start gap-3.5 mt-7">
                     <p className="text-blue-400 text-sm">JavaScript</p>
                     <p className="text-blue-400 text-sm">Git</p>
-                    <p className="text-blue-400 text-sm">Django</p>
                 </div>
-                <div className="flex flex-row items-start gap-28 mt-5">
+                <div className="flex flex-col items-start gap-3.5 mt-7 ml-10">
                     <p className="text-blue-400 text-sm">Python</p>
                     <p className="text-blue-400 text-sm">React</p>
+                </div>
+                <div className="flex flex-col items-start gap-3.5 mt-7 ml-10">
+                    <p className="text-blue-400 text-sm">Django</p>
                 </div>
             </div>
             <h4 className="text-yellow-400 text-sm mt-7">$ uptime</h4>
